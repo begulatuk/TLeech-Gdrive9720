@@ -179,7 +179,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
     else:
         tt= os.path.join(destination, file_upload)
         print(tt)
-        tmp = subprocess.Popen(['rclone', 'copy', '--local-no-check-updated', '--drive-chunk-size=512', '--transfers=10', '--config=rclone.conf', f'/app/{file_upload}', 'DRIVE:'f'{tt}', '-vvv'], stdout = subprocess.PIPE)
+        tmp = subprocess.Popen(['rclone', 'copy', '--drive-chunk-size=512M', '--transfers=10', '--local-no-check-updated', '--config=rclone.conf', f'/app/{file_upload}', 'DRIVE:'f'{tt}', '-vvv'], stdout = subprocess.PIPE)
         pro, cess = tmp.communicate()
         print(pro)
         g_file = re.escape(file_upload)
