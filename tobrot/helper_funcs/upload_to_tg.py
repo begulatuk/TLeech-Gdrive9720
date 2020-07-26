@@ -143,7 +143,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
         fole.write(f"{RCLONE_CONFIG}")
     destination = f'{DESTINATION_FOLDER}'
     if os.path.isfile(file_upload):
-        tmp = subprocess.Popen(['rclone', 'copy', '--drive-chunk-size=1G','--local-no-check-updated','--config=rclone.conf', f'/app/{file_upload}', 'DRIVE:'f'{destination}', '-vvv'], stdout = subprocess.PIPE)
+        tmp = subprocess.Popen(['rclone', 'copy', '--drive-chunk-size=512M', '--transfers=10', '--local-no-check-updated', '--config=rclone.conf', f'/app/{file_upload}', 'DRIVE:'f'{destination}', '-vvv'], stdout = subprocess.PIPE)
         pro, cess = tmp.communicate()
         gk_file = re.escape(file_upload)
         print(gk_file)
@@ -179,7 +179,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
     else:
         tt= os.path.join(destination, file_upload)
         print(tt)
-        tmp = subprocess.Popen(['rclone', 'copy', '--local-no-check-updated', '--drive-chunk-size=1G','--config=rclone.conf', f'/app/{file_upload}', 'DRIVE:'f'{tt}', '-vvv'], stdout = subprocess.PIPE)
+        tmp = subprocess.Popen(['rclone', 'copy', '--local-no-check-updated', '--drive-chunk-size=512', '--transfers=10', '--config=rclone.conf', f'/app/{file_upload}', 'DRIVE:'f'{tt}', '-vvv'], stdout = subprocess.PIPE)
         pro, cess = tmp.communicate()
         print(pro)
         g_file = re.escape(file_upload)
